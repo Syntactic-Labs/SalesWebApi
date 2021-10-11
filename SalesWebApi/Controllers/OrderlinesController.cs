@@ -19,7 +19,26 @@ namespace SalesWebApi.Controllers
         {
             _context = context;
         }
+        //Method that combines Quantity and Price
+        [HttpPut("update/{orderId}")]
+        public async Task<IActionResult> UpdateOrderline(int orderId)
+        {
+            var order = await _context.Orders.FindAsync(orderId);
+            if (order == null)
+            {
+                NotFound();
+            }
+            //Uses LinQ and places it in order total
+            order.Total = (from ol in _context.Orderlines
+                           where ol.OrderId == orderId
+                           select new
+                           {
+                               LineTotal = ol.Quantity * ol.Price
+                           }).Sum(x => x.LineTotal);
+            await _context.SaveChangesAsync();
+            return Ok();
 
+        }
         // GET: api/Orderlines
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Orderline>>> GetOrderlines()

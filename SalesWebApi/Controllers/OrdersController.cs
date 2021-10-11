@@ -24,14 +24,19 @@ namespace SalesWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
-            return await _context.Orders.Include(x => x.Customer).ToListAsync();
+            return await _context.Orders
+                                        .Include(x => x.Customer)
+                                        .ToListAsync();
         }
 
         // GET: api/Orders/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(int id)
         {
-            var order = await _context.Orders.Include(x => x.Customer).SingleOrDefaultAsync(x => x.Id == id);
+            var order = await _context.Orders
+                                        .Include(x => x.Customer)
+                                        .Include(x => x.Orderlines)
+                                        .SingleOrDefaultAsync(x => x.Id == id);
 
             if (order == null)
             {
