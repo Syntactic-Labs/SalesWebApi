@@ -19,7 +19,7 @@ namespace SalesWebApi.Controllers
         {
             _context = context;
         }
-        //Method that combines Quantity and Price
+        //Method that combines Quantity and Price We wrote this!
         [HttpPut("update/{orderId}")]
         public async Task<IActionResult> UpdateOrderline(int orderId)
         {
