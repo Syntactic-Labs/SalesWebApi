@@ -18,6 +18,7 @@ namespace SalesWebApi.Models
         public int CustomerId { get; set; }
 
         public virtual Customer Customer { get; set; }
+        //brings back all of list
         public virtual IEnumerable<Orderline> Orderlines { get; set; }
 
         public Order() { }

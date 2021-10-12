@@ -44,7 +44,7 @@ namespace SalesWebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            //access parameters
+            //access parameters Ip addresses       Key               method
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseRouting();
